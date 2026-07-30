@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team Lunch Picker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+:root {
+  --bg: #0f1419;
+  --surface: #1a222d;
+  --surface-hover: #222c3a;
+  --border: #2d3a4d;
+  --text: #e8edf4;
+  --text-muted: #8b9cb3;
+  --primary: #ff6b4a;
+  --primary-hover: #ff8266;
+  --primary-soft: rgba(255, 107, 74, 0.15);
+  --success: #3dd68c;
+  --success-soft: rgba(61, 214, 140, 0.12);
+  --warning: #f5a623;
+  --warning-soft: rgba(245, 166, 35, 0.12);
+  --danger: #ff5c7a;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --font: "DM Sans", system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 107, 74, 0.18), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(61, 214, 140, 0.08), transparent);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.screen {
+  min-height: 100vh;
+}
+
+#setup-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+/* Setup */
+.setup-card {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+.logo {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.setup-card h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  margin: 0 0 2rem;
+  font-size: 0.95rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* Forms */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.field span {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.field small {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.95rem;
+  transition: border-color 0.15s;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.input-row input {
+  flex: 1;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.1rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-secondary {
+  background: var(--surface-hover);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--border);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.btn-ghost:hover {
+  color: var(--text);
+  background: var(--surface-hover);
+}
+
+.btn-sm {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.82rem;
+}
+
+.btn-large {
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.btn-vote {
+  min-width: 72px;
+}
+
+.btn-vote.active {
+  background: var(--success);
+  color: #0f1419;
+}
+
+.btn-danger {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.6rem;
+  font-size: 0.78rem;
+}
+
+.btn-danger:hover {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+/* Banner */
+.banner {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  text-align: left;
+  margin-bottom: 1.25rem;
+}
+
+.banner-warning {
+  background: var(--warning-soft);
+  border: 1px solid rgba(245, 166, 35, 0.3);
+  color: var(--text);
+}
+
+.banner a {
+  color: var(--primary);
+}
+
+.banner code {
+  background: rgba(0, 0, 0, 0.25);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+/* App layout */
+#app-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(26, 34, 45, 0.85);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-small {
+  font-size: 1.75rem;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.room-label {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.user-badge {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  padding: 0.3rem 0.65rem;
+  background: var(--surface-hover);
+  border-radius: 999px;
+}
+
+.main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+.panel h2 {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.add-form .btn-primary {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.list-header {
+  margin-bottom: 1rem;
+}
+
+.list-header h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.count-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--surface-hover);
+  color: var(--text-muted);
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+}
+
+.winner-banner {
+  padding: 0.75rem 1rem;
+  background: var(--success-soft);
+  border: 1px solid rgba(61, 214, 140, 0.25);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+}
+
+.winner-banner strong {
+  color: var(--success);
+}
+
+/* Restaurant list */
+.restaurant-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.restaurant-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.75rem;
+  align-items: start;
+  padding: 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s;
+}
+
+.restaurant-item.leading {
+  border-color: var(--success);
+  box-shadow: 0 0 0 1px rgba(61, 214, 140, 0.2);
+}
+
+.restaurant-item.my-vote {
+  background: var(--primary-soft);
+  border-color: rgba(255, 107, 74, 0.35);
+}
+
+.restaurant-info h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.restaurant-info .meta {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+
+.restaurant-info .notes {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0.35rem 0 0;
+}
+
+.restaurant-info a {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.restaurant-info a:hover {
+  text-decoration: underline;
+}
+
+.restaurant-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.vote-count {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.voters-list {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  max-width: 120px;
+  text-align: right;
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 2rem 1rem;
+  font-size: 0.9rem;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+}
+
+.live-indicator {
+  color: var(--success);
+  font-weight: 600;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+  font-size: 0.9rem;
+  z-index: 100;
+  animation: toast-in 0.2s ease;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .setup-card {
+    margin: 1rem;
+    padding: 2rem 1.25rem;
+  }
+
+  .restaurant-item {
+    grid-template-columns: 1fr;
+  }
+
+  .restaurant-actions {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .voters-list {
+    max-width: none;
+    text-align: left;
+  }
+}
+
+</style>
+  </head>
+  <body>
+    <div id="setup-screen" class="screen">
+      <div class="card setup-card">
+        <div class="logo">LP</div>
+        <h1>Team Lunch Picker</h1>
+        <p class="subtitle">Add restaurants, vote together, pick where to eat - live with your team.</p>
+
+        <div id="config-warning" class="banner banner-warning hidden">
+          <strong>Setup needed:</strong> Copy <code>js/config.example.js</code> to
+          <code>js/config.js</code> and add your Supabase credentials.
+          <a href="https://supabase.com" target="_blank" rel="noopener">Create free account -></a>
+        </div>
+
+        <label class="field">
+          <span>Your name</span>
+          <input id="user-name" type="text" placeholder="e.g. Alex" maxlength="40" />
+        </label>
+
+        <label class="field">
+          <span>Room code</span>
+          <div class="input-row">
+            <input id="room-code" type="text" placeholder="e.g. team-lunch" maxlength="32" />
+            <button type="button" id="generate-room" class="btn btn-secondary" title="Generate random code">
+              Random
+            </button>
+          </div>
+          <small>Share this code with teammates - everyone uses the same one.</small>
+        </label>
+
+        <button id="join-room" class="btn btn-primary btn-large">Join room</button>
+      </div>
+    </div>
+
+    <div id="app-screen" class="screen hidden">
+      <header class="header">
+        <div class="header-left">
+          <span class="logo-small">LP</span>
+          <div>
+            <h1>Lunch Picker</h1>
+            <p class="room-label">Room: <strong id="display-room"></strong></p>
+          </div>
+        </div>
+        <div class="header-right">
+          <span id="user-badge" class="user-badge"></span>
+          <button id="copy-link" class="btn btn-secondary btn-sm">Copy link</button>
+          <button id="leave-room" class="btn btn-ghost btn-sm">Leave</button>
+        </div>
+      </header>
+
+      <main class="main">
+        <section class="panel add-panel">
+          <h2>Add a restaurant</h2>
+          <form id="add-form" class="add-form">
+            <label class="field">
+              <span>Restaurant name *</span>
+              <input id="restaurant-name" type="text" required placeholder="e.g. Sushi Palace" maxlength="80" />
+            </label>
+            <label class="field">
+              <span>Menu link</span>
+              <input id="menu-url" type="url" placeholder="https://..." />
+            </label>
+            <label class="field">
+              <span>Notes</span>
+              <textarea id="notes" rows="2" placeholder="Delivery time, favorite dishes, price range..." maxlength="300"></textarea>
+            </label>
+            <button type="submit" class="btn btn-primary">Add to list</button>
+          </form>
+        </section>
+
+        <section class="panel list-panel">
+          <div class="list-header">
+            <h2>Options <span id="option-count" class="count-badge">0</span></h2>
+            <div id="winner-banner" class="winner-banner hidden"></div>
+          </div>
+          <ul id="restaurant-list" class="restaurant-list"></ul>
+          <p id="empty-state" class="empty-state">No restaurants yet. Be the first to add one!</p>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span id="live-indicator" class="live-indicator">● Live</span>
+        <span>Changes sync instantly for everyone in this room.</span>
+      </footer>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+// Supabase credentials — replace with your project values.
+// See README.md for setup instructions.
+
+window.SUPABASE_URL = "https://pnphpwrtoudklpnlyeoa.supabase.co";
+window.SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBucGhwd3J0b3Vka2xwbmx5ZW9hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUzNzkwODQsImV4cCI6MjEwMDk1NTA4NH0.9j94k8008iXwe7PlvODwYM-a1IMSJEygsZP3h378Fz8";
+
+</script>
+    <script>
+/* global supabase */
+
+const STORAGE_KEYS = {
+  voterId: "lunch-picker-voter-id",
+  userName: "lunch-picker-user-name",
+  roomId: "lunch-picker-room-id",
+};
+
+let db = null;
+let roomId = null;
+let voterId = null;
+let userName = "";
+let restaurants = [];
+let votes = [];
+let channel = null;
+
+const $ = (id) => document.getElementById(id);
+
+function showToast(message) {
+  const toast = $("toast");
+  toast.textContent = message;
+  toast.classList.remove("hidden");
+  clearTimeout(showToast._timer);
+  showToast._timer = setTimeout(() => toast.classList.add("hidden"), 2800);
+}
+
+function slugifyRoom(code) {
+  return code
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9-]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 32);
+}
+
+function randomRoomCode() {
+  const words = ["lunch", "bite", "food", "team", "menu", "eat", "yum"];
+  const a = words[Math.floor(Math.random() * words.length)];
+  const b = Math.random().toString(36).slice(2, 6);
+  return `${a}-${b}`;
+}
+
+function getOrCreateVoterId() {
+  let id = localStorage.getItem(STORAGE_KEYS.voterId);
+  if (!id) {
+    id = crypto.randomUUID();
+    localStorage.setItem(STORAGE_KEYS.voterId, id);
+  }
+  return id;
+}
+
+function isConfigured() {
+  return (
+    window.SUPABASE_URL &&
+    window.SUPABASE_ANON_KEY &&
+    !window.SUPABASE_URL.includes("YOUR_PROJECT") &&
+    !window.SUPABASE_ANON_KEY.includes("YOUR_ANON")
+  );
+}
+
+function initSupabase() {
+  if (!isConfigured()) return null;
+  return window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+}
+
+async function loadData() {
+  const [restRes, voteRes] = await Promise.all([
+    db.from("restaurants").select("*").eq("room_id", roomId).order("created_at", { ascending: true }),
+    db.from("votes").select("*").eq("room_id", roomId),
+  ]);
+
+  if (restRes.error) throw restRes.error;
+  if (voteRes.error) throw voteRes.error;
+
+  restaurants = restRes.data || [];
+  votes = voteRes.data || [];
+  render();
+}
+
+function subscribeToChanges() {
+  if (channel) {
+    db.removeChannel(channel);
+  }
+
+  channel = db
+    .channel(`room:${roomId}`)
+    .on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "restaurants", filter: `room_id=eq.${roomId}` },
+      () => loadData()
+    )
+    .on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "votes", filter: `room_id=eq.${roomId}` },
+      () => loadData()
+    )
+    .subscribe();
+}
+
+function getVoteCounts() {
+  const counts = {};
+  const votersByRestaurant = {};
+
+  for (const vote of votes) {
+    counts[vote.restaurant_id] = (counts[vote.restaurant_id] || 0) + 1;
+    if (!votersByRestaurant[vote.restaurant_id]) {
+      votersByRestaurant[vote.restaurant_id] = [];
+    }
+    votersByRestaurant[vote.restaurant_id].push(vote.voter_name || "Someone");
+  }
+
+  return { counts, votersByRestaurant };
+}
+
+function getMyVote() {
+  return votes.find((v) => v.voter_id === voterId);
+}
+
+function render() {
+  const list = $("restaurant-list");
+  const empty = $("empty-state");
+  const countBadge = $("option-count");
+  const winnerBanner = $("winner-banner");
+
+  countBadge.textContent = String(restaurants.length);
+
+  if (restaurants.length === 0) {
+    list.innerHTML = "";
+    empty.classList.remove("hidden");
+    winnerBanner.classList.add("hidden");
+    return;
+  }
+
+  empty.classList.add("hidden");
+
+  const { counts, votersByRestaurant } = getVoteCounts();
+  const myVote = getMyVote();
+  const maxVotes = Math.max(0, ...Object.values(counts));
+  const leaders = restaurants.filter((r) => (counts[r.id] || 0) === maxVotes && maxVotes > 0);
+
+  if (maxVotes > 0) {
+    const names = leaders.map((r) => r.name).join(", ");
+    winnerBanner.innerHTML =
+      leaders.length === 1
+        ? `<strong>${escapeHtml(leaders[0].name)}</strong> is in the lead with ${maxVotes} vote${maxVotes === 1 ? "" : "s"}.`
+        : `<strong>Tie:</strong> ${escapeHtml(names)} (${maxVotes} votes each)`;
+    winnerBanner.classList.remove("hidden");
+  } else {
+    winnerBanner.classList.add("hidden");
+  }
+
+  list.innerHTML = restaurants
+    .map((r) => {
+      const voteCount = counts[r.id] || 0;
+      const isLeading = maxVotes > 0 && voteCount === maxVotes;
+      const isMyVote = myVote?.restaurant_id === r.id;
+      const voters = (votersByRestaurant[r.id] || []).join(", ");
+
+      return `
+        <li class="restaurant-item${isLeading ? " leading" : ""}${isMyVote ? " my-vote" : ""}" data-id="${r.id}">
+          <div class="restaurant-info">
+            <h3>${escapeHtml(r.name)}</h3>
+            ${r.added_by ? `<div class="meta">Added by ${escapeHtml(r.added_by)}</div>` : ""}
+            ${r.menu_url ? `<a href="${escapeAttr(r.menu_url)}" target="_blank" rel="noopener noreferrer">View menu ↗</a>` : ""}
+            ${r.notes ? `<p class="notes">${escapeHtml(r.notes)}</p>` : ""}
+          </div>
+          <div class="restaurant-actions">
+            <button type="button" class="btn btn-vote${isMyVote ? " active" : " btn-secondary"}" data-vote="${r.id}">
+              ${isMyVote ? "✓ Voted" : "Vote"}
+            </button>
+            <span class="vote-count">${voteCount} vote${voteCount === 1 ? "" : "s"}</span>
+            ${voters ? `<span class="voters-list">${escapeHtml(voters)}</span>` : ""}
+            <button type="button" class="btn btn-danger" data-delete="${r.id}">Remove</button>
+          </div>
+        </li>
+      `;
+    })
+    .join("");
+
+  list.querySelectorAll("[data-vote]").forEach((btn) => {
+    btn.addEventListener("click", () => handleVote(btn.dataset.vote));
+  });
+
+  list.querySelectorAll("[data-delete]").forEach((btn) => {
+    btn.addEventListener("click", () => handleDelete(btn.dataset.delete));
+  });
+}
+
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function escapeAttr(str) {
+  return str.replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
+async function handleAdd(e) {
+  e.preventDefault();
+
+  const name = $("restaurant-name").value.trim();
+  const menuUrl = $("menu-url").value.trim();
+  const notes = $("notes").value.trim();
+
+  if (!name) return;
+
+  const { error } = await db.from("restaurants").insert({
+    room_id: roomId,
+    name,
+    menu_url: menuUrl || null,
+    notes: notes || null,
+    added_by: userName || null,
+  });
+
+  if (error) {
+    showToast("Could not add restaurant: " + error.message);
+    return;
+  }
+
+  $("add-form").reset();
+  showToast("Restaurant added!");
+  await loadData();
+}
+
+async function handleVote(restaurantId) {
+  const existing = getMyVote();
+
+  if (existing?.restaurant_id === restaurantId) {
+    const { error } = await db.from("votes").delete().eq("id", existing.id);
+    if (error) {
+      showToast("Could not remove vote: " + error.message);
+      return;
+    }
+    showToast("Vote removed");
+  } else if (existing) {
+    const { error } = await db
+      .from("votes")
+      .update({ restaurant_id: restaurantId, voter_name: userName || null })
+      .eq("id", existing.id);
+    if (error) {
+      showToast("Could not change vote: " + error.message);
+      return;
+    }
+    showToast("Vote updated!");
+  } else {
+    const { error } = await db.from("votes").insert({
+      room_id: roomId,
+      restaurant_id: restaurantId,
+      voter_id: voterId,
+      voter_name: userName || null,
+    });
+    if (error) {
+      showToast("Could not vote: " + error.message);
+      return;
+    }
+    showToast("Vote recorded!");
+  }
+
+  await loadData();
+}
+
+async function handleDelete(id) {
+  if (!confirm("Remove this restaurant from the list?")) return;
+
+  const { error } = await db.from("restaurants").delete().eq("id", id);
+  if (error) {
+    showToast("Could not remove: " + error.message);
+    return;
+  }
+  showToast("Removed");
+  await loadData();
+}
+
+function showApp() {
+  $("setup-screen").classList.add("hidden");
+  $("app-screen").classList.remove("hidden");
+  $("display-room").textContent = roomId;
+  $("user-badge").textContent = userName || "Anonymous";
+}
+
+function showSetup() {
+  $("app-screen").classList.add("hidden");
+  $("setup-screen").classList.remove("hidden");
+  if (channel) {
+    db.removeChannel(channel);
+    channel = null;
+  }
+}
+
+async function joinRoom(code, name) {
+  roomId = slugifyRoom(code);
+  if (!roomId) {
+    showToast("Enter a room code");
+    return;
+  }
+
+  userName = name.trim();
+  voterId = getOrCreateVoterId();
+
+  if (userName) localStorage.setItem(STORAGE_KEYS.userName, userName);
+  localStorage.setItem(STORAGE_KEYS.roomId, roomId);
+
+  const url = new URL(window.location.href);
+  url.searchParams.set("room", roomId);
+  window.history.replaceState({}, "", url);
+
+  showApp();
+
+  try {
+    await loadData();
+    subscribeToChanges();
+  } catch (err) {
+    showToast("Failed to load room: " + err.message);
+  }
+}
+
+function copyShareLink() {
+  const url = new URL(window.location.href);
+  url.searchParams.set("room", roomId);
+  navigator.clipboard.writeText(url.toString()).then(
+    () => showToast("Link copied! Send it to your team."),
+    () => showToast("Could not copy — share the room code instead.")
+  );
+}
+
+function leaveRoom() {
+  localStorage.removeItem(STORAGE_KEYS.roomId);
+  const url = new URL(window.location.href);
+  url.searchParams.delete("room");
+  window.history.replaceState({}, "", url);
+  showSetup();
+}
+
+function initSetupScreen() {
+  if (!isConfigured()) {
+    $("config-warning").classList.remove("hidden");
+    $("join-room").disabled = true;
+  }
+
+  const savedName = localStorage.getItem(STORAGE_KEYS.userName);
+  if (savedName) $("user-name").value = savedName;
+
+  const params = new URLSearchParams(window.location.search);
+  const roomFromUrl = params.get("room");
+  if (roomFromUrl) $("room-code").value = roomFromUrl;
+
+  $("generate-room").addEventListener("click", () => {
+    $("room-code").value = randomRoomCode();
+  });
+
+  $("join-room").addEventListener("click", () => {
+    if (!db) {
+      showToast("Configure Supabase first (see js/config.js)");
+      return;
+    }
+    joinRoom($("room-code").value, $("user-name").value);
+  });
+
+  $("room-code").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") $("join-room").click();
+  });
+}
+
+function initAppScreen() {
+  $("add-form").addEventListener("submit", handleAdd);
+  $("copy-link").addEventListener("click", copyShareLink);
+  $("leave-room").addEventListener("click", leaveRoom);
+}
+
+async function boot() {
+  initSetupScreen();
+  initAppScreen();
+
+  db = initSupabase();
+
+  const params = new URLSearchParams(window.location.search);
+  const roomFromUrl = params.get("room");
+  const savedRoom = localStorage.getItem(STORAGE_KEYS.roomId);
+  const savedName = localStorage.getItem(STORAGE_KEYS.userName) || "";
+
+  if (db && roomFromUrl && isConfigured()) {
+    $("room-code").value = roomFromUrl;
+    if (savedName) $("user-name").value = savedName;
+    await joinRoom(roomFromUrl, savedName);
+  } else if (db && savedRoom && isConfigured() && !roomFromUrl) {
+    $("room-code").value = savedRoom;
+    if (savedName) $("user-name").value = savedName;
+  }
+}
+
+boot();
+
+</script>
+  </body>
+</html>
