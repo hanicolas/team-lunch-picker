@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2026년 6월, 전설의 시작</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Jua&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0f1419;
+  --surface: #1a222d;
+  --surface-hover: #222c3a;
+  --border: #2d3a4d;
+  --text: #e8edf4;
+  --text-muted: #8b9cb3;
+  --primary: #ff6b4a;
+  --primary-hover: #ff8266;
+  --primary-soft: rgba(255, 107, 74, 0.15);
+  --success: #3dd68c;
+  --success-soft: rgba(61, 214, 140, 0.12);
+  --warning: #f5a623;
+  --warning-soft: rgba(245, 166, 35, 0.12);
+  --danger: #ff5c7a;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --font: "DM Sans", system-ui, sans-serif;
+  --font-title: "Jua", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --title-gradient: linear-gradient(135deg, #ff8a65 0%, #ff6b4a 35%, #ffd166 70%, #3dd68c 100%);
+  --header-bg: rgba(26, 34, 45, 0.85);
+  --gradient-top: rgba(255, 107, 74, 0.18);
+  --gradient-bottom: rgba(61, 214, 140, 0.08);
+  --code-bg: rgba(0, 0, 0, 0.25);
+  --warning-border: rgba(245, 166, 35, 0.3);
+  --success-border: rgba(61, 214, 140, 0.25);
+  --success-glow: rgba(61, 214, 140, 0.2);
+  --primary-border: rgba(255, 107, 74, 0.35);
+  --primary-glow: rgba(255, 107, 74, 0.25);
+  --rank-gold-border: rgba(255, 209, 102, 0.4);
+  --btn-vote-active-text: #0f1419;
+  --input-bg: #0f1419;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f4f6f9;
+  --surface: #ffffff;
+  --surface-hover: #eef1f6;
+  --border: #d5dce8;
+  --text: #1a222d;
+  --text-muted: #5c6b80;
+  --primary: #e85a3a;
+  --primary-hover: #d44a2c;
+  --primary-soft: rgba(232, 90, 58, 0.1);
+  --success: #1fa968;
+  --success-soft: rgba(31, 169, 104, 0.1);
+  --warning: #c47f0a;
+  --warning-soft: rgba(196, 127, 10, 0.1);
+  --danger: #d9445e;
+  --shadow: 0 8px 24px rgba(26, 34, 45, 0.08);
+  --header-bg: rgba(255, 255, 255, 0.92);
+  --gradient-top: rgba(255, 107, 74, 0.1);
+  --gradient-bottom: rgba(61, 214, 140, 0.06);
+  --code-bg: rgba(26, 34, 45, 0.06);
+  --warning-border: rgba(196, 127, 10, 0.25);
+  --success-border: rgba(31, 169, 104, 0.25);
+  --success-glow: rgba(31, 169, 104, 0.15);
+  --primary-border: rgba(232, 90, 58, 0.3);
+  --primary-glow: rgba(232, 90, 58, 0.2);
+  --rank-gold-border: rgba(200, 140, 20, 0.35);
+  --btn-vote-active-text: #ffffff;
+  --input-bg: #ffffff;
+  --title-gradient: linear-gradient(135deg, #e85a3a 0%, #d44a2c 40%, #c47f0a 75%, #1fa968 100%);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, var(--gradient-top), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 100%, var(--gradient-bottom), transparent);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.screen {
+  min-height: 100vh;
+}
+
+#setup-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+/* Setup */
+.setup-card {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+.logo {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.setup-card h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.legend-title {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.35;
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.01em;
+  background: var(--title-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-wrap: balance;
+}
+
+.legend-title-sm {
+  font-size: 1.15rem;
+  margin: 0 0 0.15rem;
+  line-height: 1.3;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  margin: 0 0 2rem;
+  font-size: 0.95rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* Forms */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.field span {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.field small {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--input-bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.95rem;
+  transition: border-color 0.15s;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.input-row input {
+  flex: 1;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.1rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-secondary {
+  background: var(--surface-hover);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--border);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.btn-ghost:hover {
+  color: var(--text);
+  background: var(--surface-hover);
+}
+
+.btn-sm {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.82rem;
+}
+
+.btn-large {
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.btn-vote {
+  min-width: 72px;
+}
+
+.btn-vote.active {
+  background: var(--success);
+  color: var(--btn-vote-active-text);
+}
+
+.btn-danger {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.6rem;
+  font-size: 0.78rem;
+}
+
+.btn-danger:hover {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+/* Banner */
+.banner {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  text-align: left;
+  margin-bottom: 1.25rem;
+}
+
+.banner-warning {
+  background: var(--warning-soft);
+  border: 1px solid var(--warning-border);
+  color: var(--text);
+}
+
+.banner a {
+  color: var(--primary);
+}
+
+.banner code {
+  background: var(--code-bg);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+/* App layout */
+#app-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--header-bg);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-small {
+  font-size: 1.75rem;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.room-label {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.user-badge {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  padding: 0.3rem 0.65rem;
+  background: var(--surface-hover);
+  border-radius: 999px;
+}
+
+.main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+.panel h2 {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.add-form .btn-primary {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.list-header {
+  margin-bottom: 1rem;
+}
+
+.list-header h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.count-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--surface-hover);
+  color: var(--text-muted);
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+}
+
+.winner-banner {
+  padding: 0.75rem 1rem;
+  background: var(--success-soft);
+  border: 1px solid var(--success-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+}
+
+.winner-banner strong {
+  color: var(--success);
+}
+
+/* Restaurant list */
+.restaurant-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.restaurant-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.75rem;
+  align-items: start;
+  padding: 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s;
+}
+
+.restaurant-item.leading {
+  border-color: var(--success);
+  box-shadow: 0 0 0 1px var(--success-glow);
+}
+
+.restaurant-item.my-vote {
+  background: var(--primary-soft);
+  border-color: var(--primary-border);
+}
+
+.restaurant-info h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.restaurant-info .meta {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+
+.restaurant-info .notes {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0.35rem 0 0;
+}
+
+.restaurant-info a {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.restaurant-info a:hover {
+  text-decoration: underline;
+}
+
+.restaurant-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.vote-count {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.voters-list {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  max-width: 120px;
+  text-align: right;
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 2rem 1rem;
+  font-size: 0.9rem;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+}
+
+.live-indicator {
+  color: var(--success);
+  font-weight: 600;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+  font-size: 0.9rem;
+  z-index: 100;
+  animation: toast-in 0.2s ease;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main,
+  .calendar-main {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .setup-card {
+    margin: 1rem;
+    padding: 2rem 1.25rem;
+  }
+
+  .restaurant-item {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .restaurant-actions {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .voters-list {
+    max-width: none;
+    text-align: left;
+  }
+}
+
+/* Calendar layout */
+#calendar-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.calendar-main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.calendar-panel h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  text-align: center;
+  flex: 1;
+}
+
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.35rem;
+  margin-bottom: 0.35rem;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.35rem;
+}
+
+.cal-cell {
+  aspect-ratio: 1;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  position: relative;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.cal-empty {
+  border: none;
+  background: transparent;
+  cursor: default;
+}
+
+.cal-day:hover {
+  border-color: var(--primary);
+  background: var(--surface-hover);
+}
+
+.cal-today {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary-glow);
+}
+
+.cal-today .cal-day-num {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.cal-has-options .cal-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--success);
+}
+
+.cal-day-num {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.today-btn {
+  width: 100%;
+  margin-top: 0.75rem;
+}
+
+.panel-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: -0.5rem 0 1rem;
+}
+
+/* Team nicknames */
+.team-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.team-member {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.5rem 0.65rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.team-member.is-me {
+  border-color: var(--primary-border);
+  background: var(--primary-soft);
+}
+
+.team-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--surface-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.team-name {
+  font-size: 0.9rem;
+}
+
+/* Ranking list */
+.ranking-list {
+  list-style: none;
+  counter-reset: none;
+}
+
+.ranking-list .restaurant-item {
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+}
+
+.rank-badge {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  min-width: 2rem;
+  padding-top: 0.1rem;
+}
+
+.restaurant-item.rank-gold .rank-badge {
+  color: #ffd166;
+}
+
+.restaurant-item.rank-silver .rank-badge {
+  color: #c0c8d4;
+}
+
+.restaurant-item.rank-bronze .rank-badge {
+  color: #cd8b62;
+}
+
+.restaurant-item.rank-gold {
+  border-color: var(--rank-gold-border);
+}
+
+.menu-text {
+  font-size: 0.85rem;
+  color: var(--text);
+  margin: 0.25rem 0;
+  white-space: pre-wrap;
+}
+
+#room-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 200;
+  box-shadow: var(--shadow);
+}
+
+</style>
+    <script>
+      (function () {
+        var saved = localStorage.getItem("lunch-picker-theme");
+        var theme =
+          saved === "light" || saved === "dark"
+            ? saved
+            : window.matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "dark";
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
+  </head>
+  <body>
+    <button id="theme-toggle" class="theme-toggle btn btn-secondary btn-sm" type="button" aria-label="Toggle light and dark mode">
+      Theme
+    </button>
+    <!-- Nickname setup -->
+    <div id="setup-screen" class="screen">
+      <div class="card setup-card">
+        <div class="logo">LP</div>
+        <h1 class="legend-title">2026년 6월, 전설의 시작</h1>
+        <p class="subtitle">Pick a date, add restaurant options, and vote together.</p>
+
+        <div id="config-warning" class="banner banner-warning hidden">
+          <strong>Setup needed:</strong> Add your Supabase credentials in <code>js/config.js</code>.
+        </div>
+
+        <label class="field">
+          <span>Your nickname</span>
+          <input id="nickname-input" type="text" placeholder="e.g. Alex" maxlength="40" />
+          <small>This is shown to your team when you vote or add restaurants.</small>
+        </label>
+
+        <button id="save-nickname" class="btn btn-primary btn-large">Join the team</button>
+      </div>
+    </div>
+
+    <!-- Calendar home -->
+    <div id="calendar-screen" class="screen hidden">
+      <header class="header">
+        <div class="header-left">
+          <span class="logo-small">LP</span>
+          <div>
+            <p class="legend-title legend-title-sm">2026년 6월, 전설의 시작</p>
+            <p class="room-label">Pick a date to plan lunch</p>
+          </div>
+        </div>
+        <div class="header-right">
+          <span id="calendar-nickname" class="user-badge"></span>
+          <button id="edit-nickname" class="btn btn-ghost btn-sm">Change nickname</button>
+        </div>
+      </header>
+
+      <main class="calendar-main">
+        <section class="panel calendar-panel">
+          <div class="calendar-nav">
+            <button id="prev-month" class="btn btn-secondary btn-sm" type="button">&larr;</button>
+            <h2 id="calendar-title"></h2>
+            <button id="next-month" class="btn btn-secondary btn-sm" type="button">&rarr;</button>
+          </div>
+          <div class="calendar-weekdays">
+            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+          </div>
+          <div id="calendar-grid" class="calendar-grid"></div>
+          <button id="go-today" class="btn btn-ghost btn-sm today-btn" type="button">Go to today</button>
+        </section>
+
+        <section class="panel team-panel">
+          <h2>Team nicknames</h2>
+          <p class="panel-desc">Everyone who has joined shows up here.</p>
+          <ul id="team-list" class="team-list"></ul>
+          <p id="team-empty" class="empty-state">No teammates yet. Be the first to join!</p>
+        </section>
+      </main>
+    </div>
+
+    <!-- Date room -->
+    <div id="room-screen" class="screen hidden">
+      <header class="header">
+        <div class="header-left">
+          <button id="back-to-calendar" class="btn btn-ghost btn-sm" type="button">&larr; Calendar</button>
+          <div>
+            <h1 id="display-date"></h1>
+            <p class="room-label">Lunch options for this day</p>
+          </div>
+        </div>
+        <div class="header-right">
+          <span id="room-nickname" class="user-badge"></span>
+          <button id="copy-link" class="btn btn-secondary btn-sm" type="button">Copy link</button>
+        </div>
+      </header>
+
+      <main class="main">
+        <section class="panel add-panel">
+          <h2>Add a restaurant</h2>
+          <form id="add-form" class="add-form">
+            <label class="field">
+              <span>Restaurant name *</span>
+              <input id="restaurant-name" type="text" required placeholder="e.g. Sushi Palace" maxlength="80" />
+            </label>
+            <label class="field">
+              <span>Menu</span>
+              <textarea id="menu-text" rows="2" placeholder="Favorite dishes, set menus, etc." maxlength="500"></textarea>
+            </label>
+            <label class="field">
+              <span>Menu link</span>
+              <input id="menu-url" type="url" placeholder="https://..." />
+            </label>
+            <label class="field">
+              <span>Notes</span>
+              <textarea id="notes" rows="2" placeholder="Delivery time, price range..." maxlength="300"></textarea>
+            </label>
+            <button type="submit" class="btn btn-primary">Add to list</button>
+          </form>
+        </section>
+
+        <section class="panel list-panel">
+          <div class="list-header">
+            <h2>Live ranking <span id="option-count" class="count-badge">0</span></h2>
+            <div id="winner-banner" class="winner-banner hidden"></div>
+          </div>
+          <ol id="restaurant-list" class="restaurant-list ranking-list"></ol>
+          <p id="empty-state" class="empty-state">No restaurants yet. Be the first to add one!</p>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span id="live-indicator" class="live-indicator">Live</span>
+        <span>Rankings update instantly for everyone on this date.</span>
+      </footer>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script>
+      window.SUPABASE_URL = "https://pnphpwrtoudklpnlyeoa.supabase.co";
+      window.SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBucGhwd3J0b3Vka2xwbmx5ZW9hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUzNzkwODQsImV4cCI6MjEwMDk1NTA4NH0.9j94k8008iXwe7PlvODwYM-a1IMSJEygsZP3h378Fz8";
+    </script>
+    <script>
+/* global supabase */
+
+const STORAGE_KEYS = {
+  memberId: "lunch-picker-member-id",
+  nickname: "lunch-picker-nickname",
+  theme: "lunch-picker-theme",
+};
+
+const MONTH_NAMES = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+
+let db = null;
+let memberId = null;
+let nickname = "";
+let roomId = null; // YYYY-MM-DD
+let restaurants = [];
+let votes = [];
+let teamMembers = [];
+let datesWithOptions = new Set();
+let calendarYear = new Date().getFullYear();
+let calendarMonth = new Date().getMonth();
+let roomChannel = null;
+let teamChannel = null;
+let calendarChannel = null;
+
+const $ = (id) => document.getElementById(id);
+
+function getPreferredTheme() {
+  const saved = localStorage.getItem(STORAGE_KEYS.theme);
+  if (saved === "light" || saved === "dark") return saved;
+  return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem(STORAGE_KEYS.theme, theme);
+  const btn = $("theme-toggle");
+  if (btn) btn.textContent = theme === "dark" ? "Light mode" : "Dark mode";
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute("data-theme") || "dark";
+  applyTheme(current === "dark" ? "light" : "dark");
+}
+
+function initTheme() {
+  applyTheme(getPreferredTheme());
+  $("theme-toggle")?.addEventListener("click", toggleTheme);
+}
+
+function showToast(message) {
+  const toast = $("toast");
+  toast.textContent = message;
+  toast.classList.remove("hidden");
+  clearTimeout(showToast._timer);
+  showToast._timer = setTimeout(() => toast.classList.add("hidden"), 2800);
+}
+
+function showScreen(name) {
+  ["setup-screen", "calendar-screen", "room-screen"].forEach((id) => {
+    $(id).classList.toggle("hidden", id !== `${name}-screen`);
+  });
+}
+
+function isConfigured() {
+  return (
+    window.SUPABASE_URL &&
+    window.SUPABASE_ANON_KEY &&
+    !window.SUPABASE_URL.includes("YOUR_PROJECT") &&
+    !window.SUPABASE_ANON_KEY.includes("YOUR_ANON")
+  );
+}
+
+function initSupabase() {
+  if (!isConfigured()) return null;
+  return window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+}
+
+function getOrCreateMemberId() {
+  let id = localStorage.getItem(STORAGE_KEYS.memberId);
+  if (!id) {
+    id = crypto.randomUUID();
+    localStorage.setItem(STORAGE_KEYS.memberId, id);
+  }
+  return id;
+}
+
+function formatDateISO(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+function parseDateISO(iso) {
+  const [y, m, d] = iso.split("-").map(Number);
+  return new Date(y, m - 1, d);
+}
+
+function formatDateDisplay(iso) {
+  const date = parseDateISO(iso);
+  const today = formatDateISO(new Date());
+  const label = date.toLocaleDateString(undefined, {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  return iso === today ? `${label} (Today)` : label;
+}
+
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function escapeAttr(str) {
+  return str.replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
+async function saveNickname(name) {
+  nickname = name.trim();
+  if (!nickname) {
+    showToast("Please enter a nickname");
+    return false;
+  }
+
+  memberId = getOrCreateMemberId();
+  localStorage.setItem(STORAGE_KEYS.nickname, nickname);
+
+  const { error } = await db.from("team_members").upsert(
+    { member_id: memberId, nickname, updated_at: new Date().toISOString() },
+    { onConflict: "member_id" }
+  );
+
+  if (error) {
+    showToast("Could not save nickname: " + error.message);
+    return false;
+  }
+
+  return true;
+}
+
+async function loadTeamMembers() {
+  const { data, error } = await db
+    .from("team_members")
+    .select("*")
+    .order("nickname", { ascending: true });
+
+  if (error) throw error;
+  teamMembers = data || [];
+  renderTeamList();
+}
+
+function renderTeamList() {
+  const list = $("team-list");
+  const empty = $("team-empty");
+
+  if (teamMembers.length === 0) {
+    list.innerHTML = "";
+    empty.classList.remove("hidden");
+    return;
+  }
+
+  empty.classList.add("hidden");
+  list.innerHTML = teamMembers
+    .map(
+      (m) => `
+      <li class="team-member${m.member_id === memberId ? " is-me" : ""}">
+        <span class="team-avatar">${escapeHtml(m.nickname.charAt(0).toUpperCase())}</span>
+        <span class="team-name">${escapeHtml(m.nickname)}${m.member_id === memberId ? " (you)" : ""}</span>
+      </li>`
+    )
+    .join("");
+}
+
+async function loadMonthActivity() {
+  const start = formatDateISO(new Date(calendarYear, calendarMonth, 1));
+  const end = formatDateISO(new Date(calendarYear, calendarMonth + 1, 0));
+
+  const { data, error } = await db
+    .from("restaurants")
+    .select("room_id")
+    .gte("room_id", start)
+    .lte("room_id", end);
+
+  if (error) throw error;
+
+  datesWithOptions = new Set((data || []).map((r) => r.room_id));
+  renderCalendar();
+}
+
+function renderCalendar() {
+  $("calendar-title").textContent = `${MONTH_NAMES[calendarMonth]} ${calendarYear}`;
+
+  const grid = $("calendar-grid");
+  const firstDay = new Date(calendarYear, calendarMonth, 1).getDay();
+  const daysInMonth = new Date(calendarYear, calendarMonth + 1, 0).getDate();
+  const todayISO = formatDateISO(new Date());
+
+  let cells = "";
+
+  for (let i = 0; i < firstDay; i++) {
+    cells += `<div class="cal-cell cal-empty"></div>`;
+  }
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const iso = formatDateISO(new Date(calendarYear, calendarMonth, day));
+    const isToday = iso === todayISO;
+    const hasOptions = datesWithOptions.has(iso);
+    cells += `
+      <button type="button" class="cal-cell cal-day${isToday ? " cal-today" : ""}${hasOptions ? " cal-has-options" : ""}"
+        data-date="${iso}" aria-label="${iso}">
+        <span class="cal-day-num">${day}</span>
+        ${hasOptions ? '<span class="cal-dot"></span>' : ""}
+      </button>`;
+  }
+
+  grid.innerHTML = cells;
+  grid.querySelectorAll("[data-date]").forEach((btn) => {
+    btn.addEventListener("click", () => openDateRoom(btn.dataset.date));
+  });
+}
+
+async function loadRoomData() {
+  const [restRes, voteRes] = await Promise.all([
+    db.from("restaurants").select("*").eq("room_id", roomId).order("created_at", { ascending: true }),
+    db.from("votes").select("*").eq("room_id", roomId),
+  ]);
+
+  if (restRes.error) throw restRes.error;
+  if (voteRes.error) throw voteRes.error;
+
+  restaurants = restRes.data || [];
+  votes = voteRes.data || [];
+  renderRanking();
+}
+
+function getVoteCounts() {
+  const counts = {};
+  const votersByRestaurant = {};
+
+  for (const vote of votes) {
+    counts[vote.restaurant_id] = (counts[vote.restaurant_id] || 0) + 1;
+    if (!votersByRestaurant[vote.restaurant_id]) {
+      votersByRestaurant[vote.restaurant_id] = [];
+    }
+    votersByRestaurant[vote.restaurant_id].push(vote.voter_name || "Someone");
+  }
+
+  return { counts, votersByRestaurant };
+}
+
+function getMyVote() {
+  return votes.find((v) => v.voter_id === memberId);
+}
+
+function renderRanking() {
+  const list = $("restaurant-list");
+  const empty = $("empty-state");
+  const countBadge = $("option-count");
+  const winnerBanner = $("winner-banner");
+
+  countBadge.textContent = String(restaurants.length);
+
+  if (restaurants.length === 0) {
+    list.innerHTML = "";
+    empty.classList.remove("hidden");
+    winnerBanner.classList.add("hidden");
+    return;
+  }
+
+  empty.classList.add("hidden");
+
+  const { counts, votersByRestaurant } = getVoteCounts();
+  const myVote = getMyVote();
+  const maxVotes = Math.max(0, ...Object.values(counts));
+
+  const sorted = [...restaurants].sort((a, b) => {
+    const diff = (counts[b.id] || 0) - (counts[a.id] || 0);
+    return diff !== 0 ? diff : a.name.localeCompare(b.name);
+  });
+
+  if (maxVotes > 0) {
+    const leader = sorted[0];
+    winnerBanner.innerHTML = `<strong>#1 ${escapeHtml(leader.name)}</strong> is leading with ${maxVotes} vote${maxVotes === 1 ? "" : "s"}.`;
+    winnerBanner.classList.remove("hidden");
+  } else {
+    winnerBanner.classList.add("hidden");
+  }
+
+  list.innerHTML = sorted
+    .map((r, index) => {
+      const rank = index + 1;
+      const voteCount = counts[r.id] || 0;
+      const isMyVote = myVote?.restaurant_id === r.id;
+      const voters = (votersByRestaurant[r.id] || []).join(", ");
+      const menuText = r.menu || r.menu_text;
+      const rankClass = rank === 1 ? " rank-gold" : rank === 2 ? " rank-silver" : rank === 3 ? " rank-bronze" : "";
+
+      return `
+        <li class="restaurant-item${rankClass}${isMyVote ? " my-vote" : ""}" data-id="${r.id}">
+          <div class="rank-badge">#${rank}</div>
+          <div class="restaurant-info">
+            <h3>${escapeHtml(r.name)}</h3>
+            ${r.added_by ? `<div class="meta">Added by ${escapeHtml(r.added_by)}</div>` : ""}
+            ${menuText ? `<p class="menu-text">${escapeHtml(menuText)}</p>` : ""}
+            ${r.menu_url ? `<a href="${escapeAttr(r.menu_url)}" target="_blank" rel="noopener noreferrer">View menu link</a>` : ""}
+            ${r.notes ? `<p class="notes">${escapeHtml(r.notes)}</p>` : ""}
+          </div>
+          <div class="restaurant-actions">
+            <button type="button" class="btn btn-vote${isMyVote ? " active" : " btn-secondary"}" data-vote="${r.id}">
+              ${isMyVote ? "Voted" : "Vote"}
+            </button>
+            <span class="vote-count">${voteCount} vote${voteCount === 1 ? "" : "s"}</span>
+            ${voters ? `<span class="voters-list">${escapeHtml(voters)}</span>` : ""}
+            <button type="button" class="btn btn-danger" data-delete="${r.id}">Remove</button>
+          </div>
+        </li>`;
+    })
+    .join("");
+
+  list.querySelectorAll("[data-vote]").forEach((btn) => {
+    btn.addEventListener("click", () => handleVote(btn.dataset.vote));
+  });
+
+  list.querySelectorAll("[data-delete]").forEach((btn) => {
+    btn.addEventListener("click", () => handleDelete(btn.dataset.delete));
+  });
+}
+
+async function handleAdd(e) {
+  e.preventDefault();
+
+  const name = $("restaurant-name").value.trim();
+  const menuText = $("menu-text").value.trim();
+  const menuUrl = $("menu-url").value.trim();
+  const notes = $("notes").value.trim();
+
+  if (!name) return;
+
+  const row = {
+    room_id: roomId,
+    name,
+    menu: menuText || null,
+    menu_url: menuUrl || null,
+    notes: notes || null,
+    added_by: nickname || null,
+  };
+
+  const { error } = await db.from("restaurants").insert(row);
+
+  if (error) {
+    showToast("Could not add restaurant: " + error.message);
+    return;
+  }
+
+  $("add-form").reset();
+  showToast("Restaurant added!");
+  await loadRoomData();
+}
+
+async function handleVote(restaurantId) {
+  const existing = getMyVote();
+
+  if (existing?.restaurant_id === restaurantId) {
+    const { error } = await db.from("votes").delete().eq("id", existing.id);
+    if (error) {
+      showToast("Could not remove vote: " + error.message);
+      return;
+    }
+    showToast("Vote removed");
+  } else if (existing) {
+    const { error } = await db
+      .from("votes")
+      .update({ restaurant_id: restaurantId, voter_name: nickname || null })
+      .eq("id", existing.id);
+    if (error) {
+      showToast("Could not change vote: " + error.message);
+      return;
+    }
+    showToast("Vote updated!");
+  } else {
+    const { error } = await db.from("votes").insert({
+      room_id: roomId,
+      restaurant_id: restaurantId,
+      voter_id: memberId,
+      voter_name: nickname || null,
+    });
+    if (error) {
+      showToast("Could not vote: " + error.message);
+      return;
+    }
+    showToast("Vote recorded!");
+  }
+
+  await loadRoomData();
+}
+
+async function handleDelete(id) {
+  if (!confirm("Remove this restaurant from the list?")) return;
+
+  const { error } = await db.from("restaurants").delete().eq("id", id);
+  if (error) {
+    showToast("Could not remove: " + error.message);
+    return;
+  }
+  showToast("Removed");
+  await loadRoomData();
+}
+
+function subscribeRoomChanges() {
+  if (roomChannel) db.removeChannel(roomChannel);
+
+  roomChannel = db
+    .channel(`date:${roomId}`)
+    .on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "restaurants", filter: `room_id=eq.${roomId}` },
+      () => loadRoomData()
+    )
+    .on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "votes", filter: `room_id=eq.${roomId}` },
+      () => loadRoomData()
+    )
+    .subscribe();
+}
+
+function subscribeTeamChanges() {
+  if (teamChannel) db.removeChannel(teamChannel);
+
+  teamChannel = db
+    .channel("team-members")
+    .on("postgres_changes", { event: "*", schema: "public", table: "team_members" }, () =>
+      loadTeamMembers()
+    )
+    .subscribe();
+}
+
+function subscribeCalendarChanges() {
+  if (calendarChannel) db.removeChannel(calendarChannel);
+
+  calendarChannel = db
+    .channel("calendar-restaurants")
+    .on("postgres_changes", { event: "*", schema: "public", table: "restaurants" }, () =>
+      loadMonthActivity()
+    )
+    .subscribe();
+}
+
+function updateUrl(dateISO) {
+  const url = new URL(window.location.href);
+  if (dateISO) {
+    url.searchParams.set("date", dateISO);
+  } else {
+    url.searchParams.delete("date");
+  }
+  window.history.replaceState({}, "", url);
+}
+
+async function showCalendar() {
+  if (roomChannel) {
+    db.removeChannel(roomChannel);
+    roomChannel = null;
+  }
+
+  roomId = null;
+  updateUrl(null);
+
+  $("calendar-nickname").textContent = nickname;
+  showScreen("calendar");
+
+  try {
+    await Promise.all([loadTeamMembers(), loadMonthActivity()]);
+    subscribeTeamChanges();
+    subscribeCalendarChanges();
+  } catch (err) {
+    showToast("Failed to load calendar: " + err.message);
+  }
+}
+
+async function openDateRoom(dateISO) {
+  roomId = dateISO;
+  updateUrl(dateISO);
+
+  $("display-date").textContent = formatDateDisplay(dateISO);
+  $("room-nickname").textContent = nickname;
+  showScreen("room");
+
+  try {
+    await loadRoomData();
+    subscribeRoomChanges();
+  } catch (err) {
+    showToast("Failed to load this date: " + err.message);
+  }
+}
+
+function copyShareLink() {
+  const url = new URL(window.location.href);
+  url.searchParams.set("date", roomId);
+  navigator.clipboard.writeText(url.toString()).then(
+    () => showToast("Link copied! Share with your team."),
+    () => showToast("Could not copy link.")
+  );
+}
+
+async function enterApp() {
+  memberId = getOrCreateMemberId();
+  nickname = localStorage.getItem(STORAGE_KEYS.nickname) || "";
+
+  const params = new URLSearchParams(window.location.search);
+  const dateFromUrl = params.get("date");
+
+  if (dateFromUrl && /^\d{4}-\d{2}-\d{2}$/.test(dateFromUrl)) {
+    await showCalendar();
+    await openDateRoom(dateFromUrl);
+  } else {
+    await showCalendar();
+  }
+}
+
+function initSetupScreen() {
+  if (!isConfigured()) {
+    $("config-warning").classList.remove("hidden");
+    $("save-nickname").disabled = true;
+  }
+
+  const saved = localStorage.getItem(STORAGE_KEYS.nickname);
+  if (saved) $("nickname-input").value = saved;
+
+  $("save-nickname").addEventListener("click", async () => {
+    if (!window.supabase) {
+      showToast("Could not load Supabase. Try another browser or network.");
+      return;
+    }
+    if (!db) {
+      showToast("Supabase credentials missing. Re-upload index.html from your PC.");
+      return;
+    }
+    const ok = await saveNickname($("nickname-input").value);
+    if (ok) await enterApp();
+  });
+
+  $("nickname-input").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") $("save-nickname").click();
+  });
+}
+
+function initCalendarScreen() {
+  $("prev-month").addEventListener("click", () => {
+    calendarMonth -= 1;
+    if (calendarMonth < 0) {
+      calendarMonth = 11;
+      calendarYear -= 1;
+    }
+    loadMonthActivity().catch((err) => showToast(err.message));
+  });
+
+  $("next-month").addEventListener("click", () => {
+    calendarMonth += 1;
+    if (calendarMonth > 11) {
+      calendarMonth = 0;
+      calendarYear += 1;
+    }
+    loadMonthActivity().catch((err) => showToast(err.message));
+  });
+
+  $("go-today").addEventListener("click", () => {
+    const now = new Date();
+    calendarYear = now.getFullYear();
+    calendarMonth = now.getMonth();
+    loadMonthActivity().catch((err) => showToast(err.message));
+  });
+
+  $("edit-nickname").addEventListener("click", () => {
+    showScreen("setup");
+  });
+}
+
+function initRoomScreen() {
+  $("add-form").addEventListener("submit", handleAdd);
+  $("copy-link").addEventListener("click", copyShareLink);
+  $("back-to-calendar").addEventListener("click", () => {
+    showCalendar().catch((err) => showToast(err.message));
+  });
+}
+
+async function boot() {
+  initTheme();
+  initSetupScreen();
+  initCalendarScreen();
+  initRoomScreen();
+
+  db = initSupabase();
+  memberId = getOrCreateMemberId();
+  nickname = localStorage.getItem(STORAGE_KEYS.nickname) || "";
+
+  if (!db || !isConfigured()) return;
+
+  if (nickname) {
+    await db.from("team_members").upsert(
+      { member_id: memberId, nickname, updated_at: new Date().toISOString() },
+      { onConflict: "member_id" }
+    );
+    await enterApp();
+  }
+}
+
+boot();
+
+</script>
+  </body>
+</html>
